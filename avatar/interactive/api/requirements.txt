@@ -5,7 +5,3 @@
 azure-functions
 requests
 pyodbc
-azure-search-documents==11.4.0b6 
-openai==0.28.1 
-tenacity
-pandas
