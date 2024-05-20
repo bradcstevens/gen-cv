@@ -11,3 +11,4 @@ RUN python3 -m pip install --upgrade pip
 COPY ../avatar/install-odbc-18-ubuntu.sh /tmp/install-odbc-18-ubuntu.sh
 RUN sudo chmod +x /tmp/install-odbc-18-ubuntu.sh
 RUN sudo /tmp/install-odbc-18-ubuntu.sh
+RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash

@@ -12,7 +12,8 @@ var system_prompt = `You are an AI assistant focused on delivering brief product
 - Pay attention to the language the customer is using in their latest statement and respond in the same language!
 `
 
-const TTSVoice = "en-US-JennyMultilingualNeural" // Update this value if you want to use a different voice
+// const TTSVoice = "en-US-JennyMultilingualNeural" // Update this value if you want to use a different voice
+const TTSVoice = "Herbalife-Dr-Luigi-VoiceNeural" // Update this value if you want to use a different voice
 
 const CogSvcRegion = "westus2" // Fill your Azure cognitive services region here, e.g. westus2
 
@@ -20,8 +21,8 @@ const IceServerUrl = "turn:relay.communication.microsoft.com:3478" // Fill your 
 let IceServerUsername
 let IceServerCredential
 
-const TalkingAvatarCharacter = "lisa"
-const TalkingAvatarStyle = "casual-sitting"
+const TalkingAvatarCharacter = "Herbalife"
+const TalkingAvatarStyle = "standing"
 
 supported_languages = ["en-US", "de-DE", "zh-CN", "ar-AE"] // The language detection engine supports a maximum of 4 languages
 
