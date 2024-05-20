@@ -1,13 +1,28 @@
 {
-    "name": "Python 3.11",
+    "name": "gen-cv",
     "build": {
         "dockerfile": "Dockerfile",
-        "context": ".."
+        "args": {
+            "NODE_VERSION": "18",
+            "CORE_TOOLS_VERSION": "4"
+        }
     },
+    "forwardPorts": [7071, 4280],
     "features": {
+        "ghcr.io/devcontainers/features/common-utils:2":{
+            "installZsh": "true",
+            "username": "gen-cv",
+            "userUid": "1000",
+            "userGid": "1000",
+            "upgradePackages": "true"
+        },
         "ghcr.io/devcontainers/features/node:1": {
             "version": "18",
             "nodeGypDependencies": false
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest",
+            "ppa": "false"
         },
         "ghcr.io/devcontainers/features/azure-cli:1": {}
     },
@@ -15,11 +30,22 @@
         "vscode": {
             "extensions": [
                 "ms-azuretools.vscode-docker",
+                "dbaeumer.vscode-eslint",
+                "editorconfig.editorconfig",
+                "esbenp.prettier-vscode",
+                "eg2.vscode-npm-script",
+                "visualstudioexptteam.vscodeintellicode",
                 "ms-azuretools.vscode-azurefunctions",
                 "ms-azuretools.vscode-azurestaticwebapps",
                 "ms-python.python",
                 "ms-toolsai.jupyter"
-            ]
+            ],
+            "postCreateCommand": "npm install && npm link && npm install -g @azure/static-web-apps-cli && npx cypress install",
+            "remoteUser": "gen-cv",
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash",
+                "python.defaultInterpreterPath": "/usr/local/bin/python"
+            }
         }
     }
 }
