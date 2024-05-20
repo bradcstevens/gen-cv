@@ -6,7 +6,7 @@ ENV \
 
 # Copy library scripts to execute
 COPY \
-    library-scripts/*.sh library-scripts/*.env /tmp/library-scripts/
+    library-scripts/*.sh library-scripts/*.py library-scripts/*.env /tmp/library-scripts/
 
 # Install Node.js, Azure Static Web Apps CLI and Azure Functions Core Tools
 ARG NODE_VERSION="18"
