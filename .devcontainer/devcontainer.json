@@ -1,6 +1,6 @@
 {
     "name": "gen-cv",
-    "image": "mcr.microsoft.com/devcontainers/python",
+    "image": "mcr.microsoft.com/devcontainers/python:3.11",
     "features": {
         "ghcr.io/devcontainers/features/node:1": {
             "version": "18",
