@@ -148,10 +148,8 @@ async function generateText(prompt) {
   let generatedText
   let products
   await fetch(`/api/message`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(messages) })
-    // .then(response => response.json())
-    .then(response => {
-      console.log(response, "~~~~~LOOK AT ME~~~~~");
-      const data = response.json();
+    .then(response => response.json())
+    .then(data => {
       generatedText = data["messages"][data["messages"].length - 1].content;
       messages = data["messages"];
       products = data["products"]
@@ -163,6 +161,7 @@ async function generateText(prompt) {
   }
   return generatedText;
 }
+
 
 // Connect to TTS Avatar API
 function connectToAvatarService() {
