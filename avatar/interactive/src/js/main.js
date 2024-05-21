@@ -148,8 +148,9 @@ async function generateText(prompt) {
   let generatedText
   let products
   await fetch(`/api/message`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(messages) })
-    .then(response => response.json())
-    .then(data => {
+    // .then(response => response.json())
+    .then(response => {
+      const data = response.json();
       generatedText = data["messages"][data["messages"].length - 1].content;
       messages = data["messages"];
       products = data["products"]
