@@ -43,7 +43,7 @@
             "postCreateCommand": "npm install && npm link && npm install -g @azure/static-web-apps-cli && npx cypress install",
             "remoteUser": "gen-cv",
             "settings": {
-                "terminal.integrated.shell.linux": "/bin/bash",
+                "terminal.integrated.shell.linux": "/bin/zsh",
                 "python.defaultInterpreterPath": "/usr/local/bin/python"
             }
         }

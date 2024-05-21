@@ -24,8 +24,14 @@ let IceServerCredential
 // const TalkingAvatarCharacter = "lisa"
 // const TalkingAvatarStyle = "casual-sitting"
 
-const TalkingAvatarCharacter = "Herbalife"
-const TalkingAvatarStyle = "standing"
+// const TalkingAvatarCharacter = "lisa"
+// const TalkingAvatarStyle = "casual-sitting"
+
+const TalkingAvatarCharacter = "lisa"
+const TalkingAvatarStyle = "casual-sitting"
+
+// const TalkingAvatarCharacter = "Herbalife"
+// const TalkingAvatarStyle = "standing"
 
 supported_languages = ["en-US", "de-DE", "zh-CN", "ar-AE"] // The language detection engine supports a maximum of 4 languages
 
@@ -148,8 +154,10 @@ async function generateText(prompt) {
   let generatedText
   let products
   await fetch(`/api/message`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(messages) })
-    .then(response => response.json())
-    .then(data => {
+    // .then(response => response.json())
+    .then(response => {
+      console.log(response, "~~~~~LOOK AT ME~~~~~");
+      const data = response.json();
       generatedText = data["messages"][data["messages"].length - 1].content;
       messages = data["messages"];
       products = data["products"]
