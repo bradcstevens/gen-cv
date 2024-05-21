@@ -12,27 +12,25 @@ var system_prompt = `You are an AI assistant focused on delivering brief product
 - Pay attention to the language the customer is using in their latest statement and respond in the same language!
 `
 
-// const TTSVoice = "en-US-JennyMultilingualNeural"
 const TTSVoice = "Herbalife-Dr-Luigi-VoiceNeural"
 
 const CogSvcRegion = "westus2"
+const CogSvcSubKey = "77d27168fa114845985b2ce4be16be1b"
+const CogEndpointId = "fb4a77f9-9790-4595-8f1c-e9ffc8aba2db"
 
-const IceServerUrl = "turn:relay.communication.microsoft.com:3478" // Fill your ICE server URL here, e.g. turn:turn.azure.com:3478
+const IceServerUrl = "turn:relay.communication.microsoft.com:3478"
 let IceServerUsername
 let IceServerCredential
 
-// const TalkingAvatarCharacter = "lisa"
-// const TalkingAvatarStyle = "casual-sitting"
-
 const TalkingAvatarCharacter = "Herballife-standing"
-const TalkingAvatarStyle = "standing"
+const TalkingAvatarStyle = ""
 
 supported_languages = ["en-US", "de-DE", "zh-CN", "ar-AE"] // The language detection engine supports a maximum of 4 languages
 
 let token
 
-let speechSynthesisConfig = SpeechSDK.SpeechConfig.fromEndpoint(new URL("wss://{region}.tts.speech.microsoft.com/cognitiveservices/websocket/v1?enableTalkingAvatar=true".replace("{region}", CogSvcRegion)))
-speechSynthesisConfig.endpointId = "fb4a77f9-9790-4595-8f1c-e9ffc8aba2db"
+const speechSynthesisConfig = SpeechSDK.SpeechConfig.fromSubscription(CogSvcSubKey, CogSvcRegion)
+speechSynthesisConfig.endpointId = CogEndpointId
 
 // Global objects
 var speechSynthesizer
@@ -119,6 +117,7 @@ function setupWebRTC() {
           greeting()
         } else {
           console.log("[" + (new Date()).toISOString() + "] Unable to start avatar. Result ID: " + r.resultId)
+          console.log(SpeechSDK.CancellationDetails.fromResult(r));
           if (r.reason === SpeechSDK.ResultReason.Canceled) {
             let cancellationDetails = SpeechSDK.CancellationDetails.fromResult(r)
             if (cancellationDetails.reason === SpeechSDK.CancellationReason.Error) {
@@ -194,7 +193,7 @@ window.startSession = () => {
   iconElement.id = "loadingIcon"
   var parentElement = document.getElementById("playVideo");
   parentElement.prepend(iconElement);
-  speechSynthesisConfig.speechSynthesisConfig.
+
   speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice
   document.getElementById('playVideo').className = "round-button-hide"
 
@@ -214,9 +213,10 @@ window.startSession = () => {
 }
 
 async function greeting() {
-  addToConversationHistory("Hello, my name is Lisa. How can I help you?", "light")
-
-  let spokenText = "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xmlns:mstts='https://www.w3.org/2001/mstts' xml:lang='en-US'><voice xml:lang='en-US' xml:gender='Female' name='en-US-JennyNeural'>Hello, my name is Lisa. How can I help you?</voice></speak>"
+  addToConversationHistory("Hello, How can I help you?", "light")
+  let personalVoiceSpeakerProfileID = TTSVoice
+  // let spokenText = "<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xmlns:mstts='https://www.w3.org/2001/mstts' xml:lang='en-US'><voice xml:lang='en-US' xml:gender='Female' name='en-US-JennyNeural'>Hello, my name is Lisa. How can I help you?</voice></speak>"
+  let spokenText = `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xmlns:mstts='http://www.w3.org/2001/mstts' xml:lang='en-US'><voice name='${TTSVoice}'><mstts:ttsembedding speakerProfileId='${personalVoiceSpeakerProfileID}'><mstts:leadingsilence-exact value='0'/>Hello. How can I help you?</mstts:ttsembedding></voice></speak>`
   avatarSynthesizer.speakSsmlAsync(spokenText, (result) => {
     if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
       console.log("Speech synthesized to speaker for text [ " + spokenText + " ]. Result ID: " + result.resultId)
@@ -279,7 +279,7 @@ window.stopSession = () => {
 }
 
 window.startRecording = () => {
-  const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, 'westus2');
+  const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, CogSvcRegion);
   speechConfig.authorizationToken = token;
   speechConfig.SpeechServiceConnection_LanguageIdMode = "Continuous";
   var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages(supported_languages);
