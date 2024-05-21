@@ -25,7 +25,7 @@ sql_db_name = os.getenv("SQL_DB_NAME")
 
 blob_sas_url = os.getenv("BLOB_SAS_URL")
 
-server_connection_string = f"Driver={{ODBC Driver 17 for SQL Server}};Server=tcp:{sql_db_server},1433;Uid={sql_db_user};Pwd={sql_db_password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+server_connection_string = f"Driver={{ODBC Driver 18 for SQL Server}};Server=tcp:{sql_db_server},1433;Uid={sql_db_user};Pwd={sql_db_password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
 database_connection_string = server_connection_string + f"Database={sql_db_name};"
 
 # font color adjustments
@@ -104,13 +104,36 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     messages = json.loads(req.get_body())
+    logging.info(messages)
+
+    logging.info("----")
+    logging.info("----")
+    logging.info("----")
+    logging.info("----")
+    logging.info("----")
 
     response = chat_complete(messages, functions= functions, function_call= "auto")
+    logging.info(response)
+    
+    logging.info("----")
+    logging.info("----")
+    logging.info("----")
+    logging.info("----")
+    logging.info("----")
 
+    print(response["choices"][0]["message"])
+
+    logging.info("----")
+    logging.info("----")
+    logging.info("----")
+    logging.info("----")
+    logging.info("----")
+ 
     products = []
     
     try:
         response_message = response["choices"][0]["message"]
+        
     except:
         logging.info(response)
 

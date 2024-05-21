@@ -1,8 +1,8 @@
-if ! [[ "18.04 20.04 22.04 23.04" == *"$(lsb_release -rs)"* ]];
-then
-    echo "Ubuntu $(lsb_release -rs) is not currently supported.";
-    exit;
-fi
+# if ! [[ "18.04 20.04 22.04 23.04" == *"$(lsb_release -rs)"* ]];
+# then
+#    echo "Ubuntu $(lsb_release -rs) is not currently supported.";
+#    exit;
+# fi
 
 curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
 
