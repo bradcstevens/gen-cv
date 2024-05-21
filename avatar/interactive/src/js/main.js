@@ -12,17 +12,17 @@ var system_prompt = `You are an AI assistant focused on delivering brief product
 - Pay attention to the language the customer is using in their latest statement and respond in the same language!
 `
 
-const TTSVoice = "Herbalife-Dr-Luigi-VoiceNeural"
+const TTSVoice = ""
 
 const CogSvcRegion = "westus2"
-const CogSvcSubKey = "77d27168fa114845985b2ce4be16be1b"
-const CogEndpointId = "fb4a77f9-9790-4595-8f1c-e9ffc8aba2db"
+const CogSvcSubKey = ""
+const CogEndpointId = ""
 
 const IceServerUrl = "turn:relay.communication.microsoft.com:3478"
 let IceServerUsername
 let IceServerCredential
 
-const TalkingAvatarCharacter = "Herballife-standing"
+const TalkingAvatarCharacter = ""
 const TalkingAvatarStyle = ""
 
 supported_languages = ["en-US", "de-DE", "zh-CN", "ar-AE"] // The language detection engine supports a maximum of 4 languages
