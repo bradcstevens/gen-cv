@@ -24,14 +24,8 @@ let IceServerCredential
 // const TalkingAvatarCharacter = "lisa"
 // const TalkingAvatarStyle = "casual-sitting"
 
-// const TalkingAvatarCharacter = "lisa"
-// const TalkingAvatarStyle = "casual-sitting"
-
-const TalkingAvatarCharacter = "lisa"
-const TalkingAvatarStyle = "casual-sitting"
-
-// const TalkingAvatarCharacter = "Herbalife"
-// const TalkingAvatarStyle = "standing"
+const TalkingAvatarCharacter = "Herbalife"
+const TalkingAvatarStyle = "standing"
 
 supported_languages = ["en-US", "de-DE", "zh-CN", "ar-AE"] // The language detection engine supports a maximum of 4 languages
 
