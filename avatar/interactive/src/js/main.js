@@ -12,10 +12,10 @@ var system_prompt = `You are an AI assistant focused on delivering brief product
 - Pay attention to the language the customer is using in their latest statement and respond in the same language!
 `
 
-// const TTSVoice = "en-US-JennyMultilingualNeural" // Update this value if you want to use a different voice
+// const TTSVoice = "en-US-JennyMultilingualNeural"
 const TTSVoice = "Herbalife-Dr-Luigi-VoiceNeural"
 
-const CogSvcRegion = "westus2" // Fill your Azure cognitive services region here, e.g. westus2
+const CogSvcRegion = "westus2"
 
 const IceServerUrl = "turn:relay.communication.microsoft.com:3478" // Fill your ICE server URL here, e.g. turn:turn.azure.com:3478
 let IceServerUsername
@@ -24,14 +24,15 @@ let IceServerCredential
 // const TalkingAvatarCharacter = "lisa"
 // const TalkingAvatarStyle = "casual-sitting"
 
-const TalkingAvatarCharacter = "Herbalife"
+const TalkingAvatarCharacter = "Herballife-standing"
 const TalkingAvatarStyle = "standing"
 
 supported_languages = ["en-US", "de-DE", "zh-CN", "ar-AE"] // The language detection engine supports a maximum of 4 languages
 
 let token
 
-const speechSynthesisConfig = SpeechSDK.SpeechConfig.fromEndpoint(new URL("wss://{region}.tts.speech.microsoft.com/cognitiveservices/websocket/v1?enableTalkingAvatar=true".replace("{region}", CogSvcRegion)))
+let speechSynthesisConfig = SpeechSDK.SpeechConfig.fromEndpoint(new URL("wss://{region}.tts.speech.microsoft.com/cognitiveservices/websocket/v1?enableTalkingAvatar=true".replace("{region}", CogSvcRegion)))
+speechSynthesisConfig.endpointId = "fb4a77f9-9790-4595-8f1c-e9ffc8aba2db"
 
 // Global objects
 var speechSynthesizer
@@ -162,7 +163,6 @@ async function generateText(prompt) {
   return generatedText;
 }
 
-
 // Connect to TTS Avatar API
 function connectToAvatarService() {
   // Construct TTS Avatar service request
@@ -175,6 +175,7 @@ function connectToAvatarService() {
 
   const avatarConfig = new SpeechSDK.AvatarConfig(TalkingAvatarCharacter, TalkingAvatarStyle, videoFormat)
   avatarConfig.backgroundColor = backgroundColor
+  avatarConfig.customized = true
 
   avatarSynthesizer = new SpeechSDK.AvatarSynthesizer(speechSynthesisConfig, avatarConfig)
   avatarSynthesizer.avatarEventReceived = function (s, e) {
@@ -193,7 +194,7 @@ window.startSession = () => {
   iconElement.id = "loadingIcon"
   var parentElement = document.getElementById("playVideo");
   parentElement.prepend(iconElement);
-
+  speechSynthesisConfig.speechSynthesisConfig.
   speechSynthesisConfig.speechSynthesisVoiceName = TTSVoice
   document.getElementById('playVideo').className = "round-button-hide"
 
